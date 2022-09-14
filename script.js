@@ -2,10 +2,10 @@ let field;
 let patterns = [];
 let colors = []
 let rng;
-let sn;
+let seed;
 function preload() {
     const urlParams = new URLSearchParams(window.location.search);
-    const seed = urlParams.get('seed')
+    seed = urlParams.get('seed')
     console.log(seed)
     rng = new Math.seedrandom(seed);
     noiseSeed(seed)
@@ -320,6 +320,10 @@ function setup() {
     image(tiles, border / 2, border / 2)
 
     console.log("Done generating static...")
+
+    fill("#838381");
+    
+    text(`unit ${CryptoJS.MD5(seed)}`, 8, l - 6);
 
 }
 
