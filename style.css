@@ -1,0 +1,21 @@
+.p5Canvas {
+    
+    display: block;
+    -webkit-box-shadow: 16px 16px 16px 13px rgba(0,0,0,0.65); 
+    box-shadow: 16px 16px 16px 13px rgba(0,0,0,0.65);
+
+}
+
+main {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+
+}
+
+html, body {
+    background-color: #BDBBB8;
+    margin: 0px;
+}
