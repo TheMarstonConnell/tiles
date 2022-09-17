@@ -1,14 +1,13 @@
 let field;
 let patterns = [];
 let colors = []
-let rng;
-let seed;
+
+const MAP = "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz";
+
+const from_b58 = function(S,A){var d=[],b=[],i,j,c,n;for(i in S){j=0,c=A.indexOf(S[i]);if(c<0)return undefined;c||b.length^i?i:b.push(0);while(j in d||c){n=d[j];n=n?n*58+c:c;c=n>>8;d[j]=n%256;j++}}while(j--)b.push(d[j]);return new Uint8Array(b)};
+
 function preload() {
-    const urlParams = new URLSearchParams(window.location.search);
-    seed = urlParams.get('seed')
-    console.log(seed)
-    rng = new Math.seedrandom(seed);
-    noiseSeed(seed)
+    
     patterns = [
         (tp, width, height, colors) => {
             tp.fill(colors[1]);
@@ -276,7 +275,7 @@ function preload() {
 
 function setup() {
 
-    let l = 700;
+    let l = 600;
     let border = 40;
     let k = l - border;
     field = genStaticField(k, k)
@@ -285,24 +284,23 @@ function setup() {
     let tiles = createGraphics(k, k);
 
     background("#535351")
-    console.log("Done generating field...")
+    // console.log("Done generating field...")
 
     tiles.blendMode(OVERLAY);
 
     pg = createGraphics(k, k);
 
-    let tw = Math.floor(rng() * 4) + 2
-    let th = tw
+    let tw = Math.floor(fxrand() * 4) + 2
 
-    colorChoice = Math.floor(rng() * colors.length)
+    colorChoice = Math.floor(fxrand() * colors.length)
 
     for (let x = 0; x < tw; x++) {
-        for (let y = 0; y < th; y++) {
-            tile(tiles, k / tw * x, k / th * y, k / tw, colorChoice)
+        for (let y = 0; y < tw; y++) {
+            tile(tiles, k / tw * x, k / tw * y, k / tw, colorChoice)
         }
     }
 
-    console.log("Done generating tiles...")
+    // console.log("Done generating tiles...")
 
 
 
@@ -319,11 +317,11 @@ function setup() {
 
     image(tiles, border / 2, border / 2)
 
-    console.log("Done generating static...")
+    // console.log("Done generating static...")
 
     fill("#838381");
     
-    text(`unit ${CryptoJS.MD5(seed)}`, 8, l - 6);
+    text(`unit ${CryptoJS.MD5(fxhash)}`, 8, l - 6);
 
 }
 
@@ -333,7 +331,7 @@ function genStaticField(width, height) {
     for (let a = 0; a < width; a++) {
         f = []
         for (let b = 0; b < height; b++) {
-            f[b] = rng()
+            f[b] = fxrand()
         }
         field[a] = f
     }
@@ -358,7 +356,9 @@ function buildTilePattern(pattern, width, height, c) {
   
 function tile(m, x, y, size, c) {
     noStroke()
-    let t = buildTilePattern(Math.floor(noise(x * size, y * size) * (patterns.length)), size, size, c)
+    let ts = fxrand()
+    let pp = Math.floor(ts * patterns.length)
+    let t = buildTilePattern(pp, size, size, c)
     m.image(t, x, y)
 
     let s = 2
@@ -376,10 +376,3 @@ function tile(m, x, y, size, c) {
     m.line(x - xOff + size, y, x + size - xOff, y + size);
     m.line(x, y + size - xOff, x + size, y + size - xOff);
 }
-
-function draw() {
-
-
-
-}
-

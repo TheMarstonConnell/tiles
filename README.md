@@ -6,7 +6,5 @@ I absolutely loved how this looked in photographs and wanted to see if I could p
 This project was an experiment in generative texture, color, and depth. Making flat squares feel like concrete tiles was a challenge but in the end, 
 static noise with a blur filter made the tiles feel rough and glossy.
 
-You can get your own tile set by heading to https://themarstonconnell.github.io/tiles/?seed={YOUR_NAME_HERE}. Every seed will result in a 
-different tileset.
 
 <img width="795" alt="image" src="https://user-images.githubusercontent.com/34043723/190196634-b99e8179-2fdf-4d9f-b87e-55091d7d75fb.png">
